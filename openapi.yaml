@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: Textbook RAG API
+  description: API for retrieving exact evidence and context from civic textbooks to answer user questions.
+  version: 1.0.0
+servers:
+  - url: https://your-vercel-project.vercel.app
+    description: Vercel Production Server
+paths:
+  /api/search:
+    post:
+      operationId: searchTextbook
+      summary: Search the textbook for evidence
+      description: Sends a user's question to the RAG system to retrieve the most relevant textbook paragraphs and chunks.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The specific question or query to search for.
+              required:
+                - query
+      responses:
+        '200':
+          description: Successful retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: string
+                    description: The assembled text chunks containing evidence from the textbook.
