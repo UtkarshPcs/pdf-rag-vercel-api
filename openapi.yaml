@@ -4,7 +4,7 @@ info:
   description: API for retrieving exact evidence and context from civic textbooks to answer user questions.
   version: 1.0.0
 servers:
-  - url: https://your-vercel-project.vercel.app
+  - url: https://pdf-rag-vercel-api.vercel.app
     description: Vercel Production Server
 paths:
   /api/search:

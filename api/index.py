@@ -65,7 +65,7 @@ def get_huggingface_embedding(text):
     if not HUGGINGFACE_API_KEY:
         raise Exception("HUGGINGFACE_API_KEY is not set.")
         
-    url = "https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2"
+    url = "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction"
     headers = {"Authorization": f"Bearer {HUGGINGFACE_API_KEY}"}
     
     response = requests.post(url, headers=headers, json={"inputs": text})
