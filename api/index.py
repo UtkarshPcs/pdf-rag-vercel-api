@@ -54,7 +54,7 @@ def fetch_all_chunks():
         raise Exception("Firebase not initialized")
         
     print("Fetching chunks from Firestore...")
-    chunks_ref = db.collection(os.getenv("FIRESTORE_COLLECTION", "pdf_chunks"))
+    chunks_ref = db.collection(os.getenv("FIRESTORE_COLLECTION", "document_chunks"))
     docs = chunks_ref.stream()
     
     CACHED_CHUNKS = [doc.to_dict() for doc in docs]
