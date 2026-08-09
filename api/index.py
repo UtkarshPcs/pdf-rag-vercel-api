@@ -15,7 +15,6 @@ app = Flask(__name__)
 
 # --- Global Initialization for Serverless Optimization ---
 db = None
-CACHED_CHUNKS = None
 HUGGINGFACE_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
 
 def initialize_firebase():
@@ -45,21 +44,16 @@ def initialize_firebase():
         return None
 
 def fetch_all_chunks():
-    global CACHED_CHUNKS, db
-    if CACHED_CHUNKS is not None:
-        return CACHED_CHUNKS
-        
+    global db
     db = initialize_firebase()
     if not db:
         raise Exception("Firebase not initialized")
         
-    print("Fetching chunks from Firestore...")
+    print("Fetching fresh chunks from Firestore...")
     chunks_ref = db.collection(os.getenv("FIRESTORE_COLLECTION", "document_chunks"))
     docs = chunks_ref.stream()
     
-    CACHED_CHUNKS = [doc.to_dict() for doc in docs]
-    print(f"Loaded {len(CACHED_CHUNKS)} chunks into memory cache.")
-    return CACHED_CHUNKS
+    return [doc.to_dict() for doc in docs]
 
 def get_huggingface_embedding(text):
     if not HUGGINGFACE_API_KEY:
